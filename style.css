@@ -1,0 +1,19 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+.badge {
+  width: 300px;
+  height: 400px;
+  border: 1px solid #333;
+  padding: 10px;
+  background: #fff;
+}
+.badge-photo {
+  text-align: center;
+}
+.badge-name, .badge-title, .badge-dept {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}

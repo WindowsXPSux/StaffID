@@ -1,5 +1,6 @@
-# StaffID
-ID Card App
+# Badge Printer
+
+This Electron application lets you load staff details from a CSV file and preview ID badges based on HTML templates. Each record can be printed directly from the interface.
 
 ## Prerequisites
 - Node.js (version 16 or higher recommended)
@@ -19,10 +20,11 @@ Start the Electron application with:
 npm start
 ```
 
-## Packaging (optional)
-You can create a distributable package using tools like `electron-packager` or `electron-builder`.
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Folder Structure
+- `data/Employee.csv` - Example CSV of employee records
+- `templates/` - HTML templates for each badge style
+- `photos/` - Place employee photos here
+- `output/` - Optional folder if you choose to generate PDF files
 
 ## Testing
 

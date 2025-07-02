@@ -1,1 +1,9 @@
+/photos/
+!photos/.gitkeep
+/output/
+!output/.gitkeep
+*.jpg
+*.jpeg
+*.png
+*.pdf
 node_modules/
