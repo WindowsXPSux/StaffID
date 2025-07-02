@@ -17,6 +17,16 @@ csvLoader.addEventListener('change', (e) => {
   const content = fs.readFileSync(file.path, 'utf8');
   employees = parse(content, { columns: true });
 
+  // Clean up header keys: trim spaces and strip quotes
+  employees = employees.map((record) => {
+    const cleaned = {};
+    Object.keys(record).forEach((k) => {
+      const cleanedKey = k.trim().replace(/^"|"$/g, '');
+      cleaned[cleanedKey] = record[k];
+    });
+    return cleaned;
+  });
+
   recordSelector.innerHTML = '';
   employees.forEach((record, idx) => {
     const opt = document.createElement('option');
