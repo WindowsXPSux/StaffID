@@ -1,17 +1,17 @@
 {
-  "name": "staffid",
+  "name": "badge-printer",
   "version": "1.0.0",
-  "description": "ID Card App",
+  "description": "ID Badge Creator",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"No tests specified\"",
-    "start": "electron ."
+    "start": "electron .",
+    "test": "echo \"No tests specified\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "type": "commonjs",
+  "dependencies": {
+    "csv-parse": "^5.5.0"
+  },
   "devDependencies": {
-    "electron": "^37.2.0"
+    "electron": "^27.0.0"
   }
 }

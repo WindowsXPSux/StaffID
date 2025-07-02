@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>StaffID</title>
-  </head>
-  <body>
-    <h1>Hello from Electron!</h1>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>ID Badge Creator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Electron Badge Generator</h1>
+  <input type="file" id="csvLoader" accept=".csv">
+  <select id="recordSelector"></select>
+  <select id="templateSelector">
+    <option value="templates/general.html">General</option>
+  </select>
+  <div id="badgePreview"></div>
+  <button id="printBtn">Print Card</button>
+
+  <script src="renderer.js"></script>
+</body>
 </html>
