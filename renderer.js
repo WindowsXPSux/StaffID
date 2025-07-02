@@ -61,3 +61,27 @@ function updatePreview() {
 printBtn.addEventListener('click', () => {
   window.print();
 });
+
+// Automatically load the default employee CSV on launch
+const defaultCsvPath = path.join(__dirname, 'data', 'Employee.csv');
+const content = fs.readFileSync(defaultCsvPath, 'utf8');
+
+const raw = parse(content, { columns: true });
+employees = raw.map((record) => {
+  const cleaned = {};
+  for (const key in record) {
+    const cleanKey = key.trim().replace(/^\"|\"$/g, '');
+    cleaned[cleanKey] = record[key];
+  }
+  return cleaned;
+});
+
+recordSelector.innerHTML = '';
+employees.forEach((record, idx) => {
+  const opt = document.createElement('option');
+  opt.value = idx;
+  opt.innerText = `${record['Name']}`;
+  recordSelector.appendChild(opt);
+});
+
+updatePreview();
