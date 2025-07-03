@@ -4,49 +4,21 @@ const parse = require('csv-parse/lib/sync');
 
 let employees = [];
 
-const csvLoader = document.getElementById('csvLoader');
-const recordSelector = document.getElementById('recordSelector');
+const recordList = document.getElementById('recordList');
 const templateSelector = document.getElementById('templateSelector');
 const badgePreview = document.getElementById('badgePreview');
 const printBtn = document.getElementById('printBtn');
 
-csvLoader.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+let currentIndex = 0;
+templateSelector.addEventListener('change', () => updatePreview(currentIndex));
 
-  const content = fs.readFileSync(file.path, 'utf8');
-  const raw = parse(content, { columns: true });
-  employees = raw.map((record) => {
-    const cleaned = {};
-    for (const key in record) {
-      const cleanKey = key.trim().replace(/^"|"$/g, '');
-      cleaned[cleanKey] = record[key];
-    }
-    return cleaned;
-  });
-  console.log('Cleaned employee fields:', Object.keys(employees[0]));
-
-  recordSelector.innerHTML = '';
-  employees.forEach((record, idx) => {
-    const opt = document.createElement('option');
-    opt.value = idx;
-    opt.innerText = `${record['Entry Number']} - ${record['Name']}`;
-    recordSelector.appendChild(opt);
-  });
-
-  updatePreview();
-});
-
-recordSelector.addEventListener('change', updatePreview);
-templateSelector.addEventListener('change', updatePreview);
-
-function updatePreview() {
-  const selected = recordSelector.value;
+function updatePreview(index) {
+  currentIndex = index;
   const templatePath = templateSelector.value;
-  if (!employees[selected]) return;
+  if (!employees[index]) return;
 
   let html = fs.readFileSync(templatePath, 'utf8');
-  const record = employees[selected];
+  const record = employees[index];
 
   Object.keys(record).forEach((field) => {
     const regex = new RegExp(`{{${field}}}`, 'g');
@@ -76,12 +48,14 @@ employees = raw.map((record) => {
   return cleaned;
 });
 
-recordSelector.innerHTML = '';
+recordList.innerHTML = '';
 employees.forEach((record, idx) => {
-  const opt = document.createElement('option');
-  opt.value = idx;
-  opt.innerText = `${record['Name']}`;
-  recordSelector.appendChild(opt);
+  const btn = document.createElement('button');
+  btn.innerText = record['Name'] || `Record ${idx + 1}`;
+  btn.onclick = () => updatePreview(idx);
+  recordList.appendChild(btn);
 });
 
-updatePreview();
+if (employees.length > 0) {
+  updatePreview(0);
+}
